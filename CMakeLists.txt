@@ -229,7 +229,7 @@ if(WIN32)
   list(APPEND uv_test_sources src/win/snprintf.c test/runner-win.c)
 else()
   list(APPEND uv_defines _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE)
-  if(NOT CMAKE_SYSTEM_NAME STREQUAL "Android")
+  if(NOT CMAKE_SYSTEM_NAME STREQUAL "OHOS")
     # Android has pthread as part of its c library, not as a separate
     # libpthread.so.
     list(APPEND uv_libraries pthread)
@@ -266,8 +266,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "AIX")
   list(APPEND uv_sources src/unix/aix.c)
 endif()
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Android")
-  list(APPEND uv_libs dl)
+if(CMAKE_SYSTEM_NAME STREQUAL "OHOS")
+  list(APPEND uv_libraries dl)
+
   list(APPEND uv_sources
        src/unix/android-ifaddrs.c
        src/unix/linux-core.c
@@ -280,7 +281,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Android")
        src/unix/sysinfo-loadavg.c)
 endif()
 
-if(APPLE OR CMAKE_SYSTEM_NAME MATCHES "Android|Linux|OS/390")
+if(APPLE OR CMAKE_SYSTEM_NAME MATCHES "OHOS|Linux|OS/390")
   list(APPEND uv_sources src/unix/proctitle.c)
 endif()
 
